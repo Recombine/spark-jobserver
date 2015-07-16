@@ -51,7 +51,7 @@ fi
 
 for host in $DEPLOY_HOSTS; do
   # We assume that the deploy user is APP_USER and has permissions
-  ssh $ssh_key_to_use  ${APP_USER}@$host mkdir -p $INSTALL_DIR
+  ssh $ssh_key_to_use  ${APP_USER}@$host "sudo mkdir -p $INSTALL_DIR && sudo chown -R ${APP_USER} $INSTALL_DIR"
   scp $ssh_key_to_use  $FILES ${APP_USER}@$host:$INSTALL_DIR/
   scp $ssh_key_to_use  $configFile ${APP_USER}@$host:$INSTALL_DIR/settings.sh
 done

@@ -39,11 +39,6 @@ else
   exit 1
 fi
 
-if [ -z "$SPARK_HOME" ]; then
-  echo "Please set SPARK_HOME or put it in $appdir/settings.sh first"
-  exit 1
-fi
-
 pidFilePath=$appdir/$PIDFILE
 
 if [ -f "$pidFilePath" ] && kill -0 $(cat "$pidFilePath"); then
@@ -77,8 +72,5 @@ fi
 # This needs to be exported for standalone mode so drivers can connect to the Spark cluster
 export SPARK_HOME
 
-$SPARK_HOME/bin/spark-submit --class $MAIN --driver-memory $DRIVER_MEMORY \
-  --conf "spark.executor.extraJavaOptions=$LOGGING_OPTS" \
-  --driver-java-options "$GC_OPTS $JAVA_OPTS $LOGGING_OPTS $CONFIG_OVERRIDES" \
-  $@ $appdir/spark-job-server.jar $conffile 2>&1 &
+dse spark-submit --class $MAIN $appdir/spark-job-server.jar $GC_OPTS $JAVA_OPTS $LOGGING_OPTS $conffile 2>&1 &
 echo $! > $pidFilePath
