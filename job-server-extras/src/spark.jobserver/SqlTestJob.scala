@@ -19,10 +19,11 @@ object SqlLoaderJob extends SparkSqlJob {
   def validate(sql: SQLContext, config: Config): SparkJobValidation = SparkJobValid
 
   def runJob(sql: SQLContext, config: Config): Any = {
-    import sql.implicits._
-    val addrRdd = sql.sparkContext.parallelize(addresses)
-    addrRdd.toDF().registerTempTable("addresses")
-    addrRdd.count()
+//    import sql.implicits._
+//    val addrRdd = sql.sparkContext.parallelize(addresses)
+//    addrRdd.toDF().registerTempTable("addresses")
+//    addrRdd.count()
+    5
   }
 }
 

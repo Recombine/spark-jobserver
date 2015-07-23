@@ -18,9 +18,10 @@ object StreamingTestJob extends SparkStramingJob {
     val lines = ssc.queueStream(queue)
     val words = lines.flatMap(_.split(" "))
     val pairs = words.map(word => (word, 1))
-    val wordCounts = pairs.reduceByKey(_ + _)
+//    val wordCounts = pairs.reduceByKey(_ + _)
     //do something
-    wordCounts.foreachRDD(rdd => println(rdd.count()))
+//    wordCounts.foreachRDD(rdd => println(rdd.count()))
+    5
     ssc.start()
     ssc.awaitTermination()
   }
